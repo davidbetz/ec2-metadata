@@ -14,6 +14,8 @@ RUN CGO_ENABLED=1 GOOS=linux go build -a -ldflags '-linkmode external -extldflag
 
 FROM scratch
 
+COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
+
 COPY --from=build /src/aws/metadata /
 
 ENTRYPOINT ["./metadata"]
